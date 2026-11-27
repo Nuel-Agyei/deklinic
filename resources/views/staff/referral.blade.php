@@ -20,13 +20,13 @@
         <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">
             Tell others about {{ $venueName }}
         </h1>
-        <p class="max-w-2xl text-lg text-umber">
+        <p class="max-w-2xl text-lg text-muted">
             Your word helps the next traveller from {{ $visit->origin_region }} decide. Edit the message, pick who it's for, and save it.
         </p>
     </div>
 
     @if ($visit->shared_at)
-        <div class="rounded border border-forest bg-forestTint px-5 py-4 text-forest" role="status">
+        <div class="rounded border border-ok bg-okTint px-5 py-4 text-ok" role="status">
             <p class="font-bold">✓ Shared</p>
             <p class="mt-0.5 text-base">
                 Sent to {{ $channels[$visit->shared_with_channel] ?? $visit->shared_with_channel }}
@@ -44,7 +44,7 @@
             <legend class="label">Who is this for?</legend>
             <div class="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
                 @foreach ($channels as $value => $text)
-                    <label class="flex cursor-pointer items-center gap-3 rounded border border-parchment bg-white px-4 py-3 text-base has-[:checked]:border-ink has-[:checked]:bg-cream has-[:checked]:font-semibold">
+                    <label class="flex cursor-pointer items-center gap-3 rounded border border-edge bg-white px-4 py-3 text-base has-[:checked]:border-ink has-[:checked]:bg-paper has-[:checked]:font-semibold">
                         <input type="radio" name="shared_with_channel" value="{{ $value }}"
                                class="h-4 w-4 accent-ink"
                                @checked(old('shared_with_channel', $visit->shared_with_channel ?? array_key_first($channels)) === $value)>
@@ -57,13 +57,13 @@
         <div>
             <div class="flex items-end justify-between gap-3">
                 <label for="referral_note" class="label !mb-0">Your message</label>
-                <button type="button" id="copy-note" class="text-sm font-semibold underline hover:text-ochreDark">
+                <button type="button" id="copy-note" class="text-sm font-semibold underline hover:text-link">
                     Copy message
                 </button>
             </div>
 
             @if ($visit->ai_referral_draft)
-                <p class="mt-1 text-sm text-umber">We started this for you. Change anything you like.</p>
+                <p class="mt-1 text-sm text-muted">We started this for you. Change anything you like.</p>
             @endif
 
             <textarea id="referral_note" name="referral_note" rows="6" required
@@ -72,13 +72,13 @@
 
         <div class="flex flex-wrap items-center gap-4">
             <button type="submit" class="btn-primary">Save and share</button>
-            <a href="{{ route('discover') }}" class="text-base font-semibold underline hover:text-ochreDark">
+            <a href="{{ route('discover') }}" class="text-base font-semibold underline hover:text-link">
                 Start a new trip
             </a>
         </div>
     </form>
 
-    <p class="text-sm text-umber">
+    <p class="text-sm text-muted">
         {{ $visit->guest_name }} · {{ $visit->target_window ?: 'Accra trip' }} ·
         {{ $visit->isConfirmed() ? 'Visit confirmed' : 'Visit not yet confirmed' }}
     </p>

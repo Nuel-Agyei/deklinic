@@ -9,7 +9,7 @@
         {{-- LEFT: what is this place? --}}
         <div class="space-y-8 lg:col-span-7">
             <section class="space-y-4">
-                <p class="text-sm font-semibold text-ochreDark">{{ $venue->city }}, {{ $venue->country }}</p>
+                <p class="text-sm font-semibold text-link">{{ $venue->city }}, {{ $venue->country }}</p>
 
                 <h1 class="text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
                     {{ $venue->name }}
@@ -19,12 +19,12 @@
                     {{ $venue->summary }}
                 </p>
 
-                <p class="text-base text-umber">
+                <p class="text-base text-muted">
                     Run by <span class="font-semibold text-ink">{{ $venue->owner_name }}</span>.
                 </p>
             </section>
 
-            <section class="border-l-4 border-ochre pl-5">
+            <section class="border-l-4 border-gold pl-5">
                 <h2 class="text-lg font-bold">Why people pass it on</h2>
                 <p class="mt-2 text-base leading-relaxed">
                     {{ $venue->community_story }}
@@ -42,9 +42,9 @@
             @endphp
 
             <section class="panel">
-                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-parchment px-5 py-4">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-edge px-5 py-4">
                     <h2 class="text-lg font-bold">Good to know before you go</h2>
-                    <span class="rounded border border-parchment bg-cream px-2.5 py-1 text-xs font-semibold text-umber">
+                    <span class="rounded border border-edge bg-paper px-2.5 py-1 text-xs font-semibold text-muted">
                         Sample info, not confirmed
                     </span>
                 </div>
@@ -53,66 +53,66 @@
                     $sampleMenu = $details['sample_menu'] ?? [];
                 @endphp
 
-                <section class="panel">
-                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-parchment px-5 py-4">
+                <div>
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-edge px-5 py-4">
                         <div>
                             <h2 class="text-lg font-bold">Local food &amp; pub experience</h2>
-                            <p class="text-sm text-umber">Core vibe for your Accra stop, shown with sample items.</p>
+                            <p class="text-sm text-muted">Core vibe for your Accra stop, shown with sample items.</p>
                         </div>
-                        <span class="rounded border border-parchment bg-cream px-2.5 py-1 text-xs font-semibold text-umber">
+                        <span class="rounded border border-edge bg-paper px-2.5 py-1 text-xs font-semibold text-muted">
                             Sample items · TBC
                         </span>
                     </div>
 
-                    <div class="grid grid-cols-1 divide-y divide-parchment md:grid-cols-2 md:divide-x md:divide-y-0">
+                    <div class="grid grid-cols-1 divide-y divide-edge md:grid-cols-2 md:divide-x md:divide-y-0">
                         <div class="p-5 space-y-3">
-                            <h3 class="text-sm font-bold uppercase tracking-wide text-umber">Sample menu highlights</h3>
-                            <ul class="divide-y divide-parchment border-y border-parchment text-sm">
+                            <h3 class="text-sm font-bold uppercase tracking-wide text-muted">Sample menu highlights</h3>
+                            <ul class="divide-y divide-edge border-y border-edge text-sm">
                                 @foreach ($sampleMenu as $item)
                                     <li class="py-2.5 flex items-center justify-between gap-3">
                                         <span class="font-medium text-ink">{{ $item['name'] }}</span>
-                                        <span class="text-xs text-umber shrink-0">{{ $item['status'] }}</span>
+                                        <span class="text-xs text-muted shrink-0">{{ $item['status'] }}</span>
                                     </li>
                                 @endforeach
                             </ul>
                         </div>
 
                         <div class="p-5 space-y-3">
-                            <h3 class="text-sm font-bold uppercase tracking-wide text-umber">Pub &amp; night features</h3>
+                            <h3 class="text-sm font-bold uppercase tracking-wide text-muted">Pub &amp; night features</h3>
                             <ul class="space-y-2 text-sm text-ink">
                                 @foreach ($pubFeatures as $feature)
                                     <li class="flex items-start gap-2">
-                                        <span class="font-bold text-ochreDark">—</span>
+                                        <span class="font-bold text-link">—</span>
                                         <span>{{ $feature }}</span>
                                     </li>
                                 @endforeach
                             </ul>
                         </div>
                     </div>
-                </section>
+                </div>
 
-                <dl class="divide-y divide-parchment">
+                <dl class="divide-y divide-edge border-t border-edge">
                     @foreach ($rows as $term => $value)
                         <div class="grid grid-cols-1 gap-1 px-5 py-3.5 sm:grid-cols-3 sm:gap-4">
-                            <dt class="text-sm font-semibold text-umber">{{ $term }}</dt>
+                            <dt class="text-sm font-semibold text-muted">{{ $term }}</dt>
                             <dd class="text-base sm:col-span-2">{{ $value }}</dd>
                         </div>
                     @endforeach
                 </dl>
 
                 @if (!empty($details['data_note']))
-                    <p class="border-t border-parchment px-5 py-3 text-sm text-umber">{{ $details['data_note'] }}</p>
+                    <p class="border-t border-edge px-5 py-3 text-sm text-muted">{{ $details['data_note'] }}</p>
                 @endif
             </section>
 
             @if ($demoVisit)
                 <section
-                    class="flex flex-col gap-3 rounded-md border border-dashed border-umber px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+                    class="flex flex-col gap-3 rounded-md border border-dashed border-muted px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                        <p class="text-sm font-bold text-forest">Demo shortcut</p>
+                        <p class="text-sm font-bold text-ok">Demo shortcut</p>
                         <p class="text-base">
                             See a finished trip for <span class="font-semibold">{{ $demoVisit->guest_name }}</span>
-                            <span class="text-umber">from {{ $demoVisit->origin_region }}</span>
+                            <span class="text-muted">from {{ $demoVisit->origin_region }}</span>
                         </p>
                     </div>
                     <a href="{{ route('itinerary.show', $demoVisit->token) }}"
@@ -128,9 +128,9 @@
             <form action="{{ route('itinerary.store') }}" method="POST" class="panel overflow-hidden">
                 @csrf
 
-                <div class="border-b border-parchment bg-cream px-6 py-5">
+                <div class="border-b border-edge bg-paper px-6 py-5">
                     <h2 class="text-2xl font-bold">Save this to your Ghana trip</h2>
-                    <p class="mt-1 text-base text-umber">
+                    <p class="mt-1 text-base text-muted">
                         Takes a minute. You get a code to show our staff when you arrive.
                     </p>
                 </div>
@@ -179,13 +179,13 @@
                     </div>
 
                     {{-- Optional extras stay out of the way until wanted --}}
-                    <details class="group rounded border border-parchment bg-cream"
+                    <details class="group rounded border border-edge bg-paper"
                         @if (old('discovery_label') || old('guest_contact') || old('trip_note')) open @endif>
-                        <summary class="cursor-pointer select-none px-4 py-3 text-base font-semibold hover:text-ochreDark">
-                            Add more details <span class="font-normal text-umber">(optional)</span>
+                        <summary class="cursor-pointer select-none px-4 py-3 text-base font-semibold hover:text-link">
+                            Add more details <span class="font-normal text-muted">(optional)</span>
                         </summary>
 
-                        <div class="space-y-5 border-t border-parchment p-4">
+                        <div class="space-y-5 border-t border-edge p-4">
                             <div>
                                 <label for="discovery_label" class="label">Who or what told you about us?</label>
                                 <input id="discovery_label" name="discovery_label" type="text"
@@ -198,17 +198,18 @@
                                 <input id="guest_contact" name="guest_contact" type="text" autocomplete="email"
                                     value="{{ old('guest_contact') }}" placeholder="kwame@example.com" class="field">
                             </div>
-                            <div class="mb-2 flex flex-wrap gap-2">
+                            <div>
+                                <label for="trip_note" class="label">Anything we should know?</label>
+                            <div class="mt-2 flex flex-wrap gap-2">
                                 @foreach (['Local food', 'Pub & drinks', 'Live band night', 'Group table'] as $tag)
                                     <button type="button"
                                         onclick="const el = document.getElementById('trip_note'); el.value = el.value ? el.value + ', ' + '{{ $tag }}' : 'Interested in: {{ $tag }}';"
-                                        class="rounded border border-parchment bg-white px-2.5 py-1 text-xs font-semibold text-ink hover:border-ink">
+                                        class="rounded border border-edge bg-white px-2.5 py-1 text-xs font-semibold text-ink hover:border-ink">
                                         + {{ $tag }}
                                     </button>
                                 @endforeach
                             </div>
-                            <div>
-                                <label for="trip_note" class="label">Anything we should know?</label>
+
                                 <textarea id="trip_note" name="trip_note" rows="3"
                                     placeholder="Arriving mid-December, planning dinner with friends." class="field">{{ old('trip_note') }}</textarea>
                             </div>

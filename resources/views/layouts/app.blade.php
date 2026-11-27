@@ -10,15 +10,15 @@
             theme: {
                 extend: {
                     colors: {
-                        cream: '#FAF6F0',
-                        sand: '#F1E8DC',
-                        parchment: '#DFD0BC',
-                        ink: '#2B1E14',
-                        umber: '#654E3A',
-                        ochre: '#B87324',
-                        ochreDark: '#945916',
-                        forest: '#2B5842',
-                        forestTint: '#E5EFE9',
+                        paper: '#F3F5F8',
+                        surface: '#FFFFFF',
+                        edge: '#D3DAE4',
+                        ink: '#0F1B2D',
+                        muted: '#4A5870',
+                        gold: '#F2B31B',
+                        link: '#1B5E9B',
+                        ok: '#1F6B47',
+                        okTint: '#E3F1E9',
                     },
                     borderRadius: {
                         DEFAULT: '4px',
@@ -38,25 +38,25 @@
                 @apply block mb-1.5 text-sm font-semibold text-ink;
             }
             .field {
-                @apply block w-full rounded border border-parchment bg-white px-3.5 py-2.5 text-base text-ink placeholder:text-umber/60 focus:border-ink focus:outline-none focus:ring-2 focus:ring-ink/15;
+                @apply block w-full rounded border border-edge bg-white px-3.5 py-2.5 text-base text-ink placeholder:text-muted/60 focus:border-ink focus:outline-none focus:ring-2 focus:ring-ink/15;
             }
             .btn-primary {
-                @apply inline-flex items-center justify-center rounded bg-ochreDark px-5 py-3 text-base font-semibold text-white transition-colors hover:bg-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-cream;
+                @apply inline-flex items-center justify-center rounded bg-gold px-5 py-3 text-base font-semibold text-ink transition-colors hover:bg-ink hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-paper;
             }
             .btn-secondary {
-                @apply inline-flex items-center justify-center rounded border border-ink bg-transparent px-5 py-3 text-base font-semibold text-ink transition-colors hover:bg-ink hover:text-cream focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-cream;
+                @apply inline-flex items-center justify-center rounded border border-ink bg-transparent px-5 py-3 text-base font-semibold text-ink transition-colors hover:bg-ink hover:text-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-paper;
             }
             .btn-confirm {
-                @apply inline-flex items-center justify-center rounded bg-forest px-5 py-2.5 text-base font-semibold text-white transition-colors hover:bg-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-cream;
+                @apply inline-flex items-center justify-center rounded bg-ok px-5 py-2.5 text-base font-semibold text-white transition-colors hover:bg-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-paper;
             }
             .panel {
-                @apply rounded-md border border-parchment bg-sand;
+                @apply rounded-md border border-edge bg-surface;
             }
         }
     </style>
     @endverbatim
 </head>
-<body class="flex min-h-screen flex-col bg-cream text-base text-ink antialiased selection:bg-ochre selection:text-white">
+<body class="flex min-h-screen flex-col bg-paper text-base text-ink antialiased selection:bg-gold selection:text-ink">
 
     @php
         $isStaff = request()->routeIs('staff.*');
@@ -64,26 +64,26 @@
         $steps = ['Discover', 'Save', 'Visit', 'Share'];
     @endphp
 
-    <header class="border-b border-parchment bg-sand">
+    <header class="border-b border-edge bg-surface">
         <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4">
             <a href="{{ route('discover') }}" class="leading-tight">
                 <span class="block text-xl font-bold tracking-tight">De Klinic</span>
-                <span class="block text-sm text-umber">Restaurant &amp; Pub · Accra</span>
+                <span class="block text-sm text-muted">Restaurant &amp; Pub · Accra</span>
             </a>
 
             @if ($isStaff)
                 <div class="flex items-center gap-3 text-sm">
-                    <span class="rounded bg-ink px-2.5 py-1 font-semibold text-cream">Staff view</span>
-                    <a href="{{ route('discover') }}" class="font-medium text-umber underline hover:text-ink">Traveller view</a>
+                    <span class="rounded bg-ink px-2.5 py-1 font-semibold text-paper">Staff view</span>
+                    <a href="{{ route('discover') }}" class="font-medium text-muted underline hover:text-ink">Traveller view</a>
                 </div>
             @else
-                <a href="{{ route('staff.visits') }}" class="text-sm font-medium text-umber underline hover:text-ink">Staff view</a>
+                <a href="{{ route('staff.visits') }}" class="text-sm font-medium text-muted underline hover:text-ink">Staff view</a>
             @endif
         </div>
 
         {{-- Progress: only on traveller pages. Shows where you are in the trip. --}}
         @if (! $isStaff && $step > 0)
-            <div class="border-t border-parchment bg-cream">
+            <div class="border-t border-edge bg-paper">
                 <ol class="mx-auto flex max-w-6xl items-center gap-2 px-5 py-3 text-sm" aria-label="Your progress">
                     @foreach ($steps as $i => $label)
                         @php
@@ -91,16 +91,16 @@
                             $done = $n < $step;
                             $current = $n === $step;
                         @endphp
-                        <li class="flex items-center gap-2 {{ $current ? 'font-bold text-ink' : ($done ? 'font-medium text-forest' : 'text-umber') }}"
+                        <li class="flex items-center gap-2 {{ $current ? 'font-bold text-ink' : ($done ? 'font-medium text-ok' : 'text-muted') }}"
                             @if ($current) aria-current="step" @endif>
                             <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-xs font-bold
-                                {{ $current ? 'border-ink bg-ink text-cream' : ($done ? 'border-forest bg-forest text-white' : 'border-parchment bg-cream text-umber') }}">
+                                {{ $current ? 'border-ink bg-ink text-paper' : ($done ? 'border-ok bg-ok text-white' : 'border-edge bg-paper text-muted') }}">
                                 {{ $done ? '✓' : $n }}
                             </span>
                             <span>{{ $label }}</span>
                         </li>
                         @if (! $loop->last)
-                            <li class="h-px flex-1 {{ $done ? 'bg-forest' : 'bg-parchment' }}" aria-hidden="true"></li>
+                            <li class="h-px flex-1 {{ $done ? 'bg-ok' : 'bg-edge' }}" aria-hidden="true"></li>
                         @endif
                     @endforeach
                 </ol>
@@ -110,7 +110,7 @@
 
     <main class="mx-auto w-full max-w-6xl flex-1 px-5 py-8 sm:py-10">
         @if (session('status'))
-            <div class="mb-6 rounded border border-forest bg-forestTint px-4 py-3 text-base font-medium text-forest" role="status">
+            <div class="mb-6 rounded border border-ok bg-okTint px-4 py-3 text-base font-medium text-ok" role="status">
                 {{ session('status') }}
             </div>
         @endif
@@ -129,8 +129,8 @@
         @yield('content')
     </main>
 
-    <footer class="border-t border-parchment bg-sand">
-        <div class="mx-auto max-w-6xl px-5 py-4 text-sm text-umber">
+    <footer class="border-t border-edge bg-surface">
+        <div class="mx-auto max-w-6xl px-5 py-4 text-sm text-muted">
             Prototype using sample data. Menu, prices, delivery and events are not confirmed.
         </div>
     </footer>

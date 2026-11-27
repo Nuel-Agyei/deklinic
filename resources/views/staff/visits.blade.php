@@ -12,7 +12,7 @@
 
     <div class="space-y-1">
         <h1 class="text-3xl font-bold tracking-tight">Confirm a guest's visit</h1>
-        <p class="text-lg text-umber">
+        <p class="text-lg text-muted">
             Ask the guest for their code, find them below, then press <span class="font-semibold text-ink">Confirm visit</span>.
         </p>
     </div>
@@ -37,39 +37,39 @@
         <button type="submit" class="btn-primary sm:py-2.5">Search</button>
     </form>
 
-    <p class="text-sm text-umber">
+    <p class="text-sm text-muted">
         {{ $visits->count() }} {{ \Illuminate\Support\Str::plural('guest', $visits->count()) }} shown:
         {{ $savedCount }} waiting, {{ $doneCount }} confirmed.
     </p>
 
     <div class="space-y-3">
         @forelse ($visits as $visit)
-            <article class="panel flex flex-col gap-4 p-5 md:flex-row md:items-center md:justify-between {{ $visit->isConfirmed() ? 'bg-cream' : '' }}">
+            <article class="panel flex flex-col gap-4 p-5 md:flex-row md:items-center md:justify-between {{ $visit->isConfirmed() ? 'bg-paper' : '' }}">
 
                 <div class="min-w-0 space-y-1">
                     <div class="flex flex-wrap items-center gap-3">
                         <a href="{{ route('itinerary.show', $visit->token) }}" class="text-xl font-bold hover:underline">
                             {{ $visit->guest_name }}
                         </a>
-                        <span class="rounded border border-parchment bg-white px-2.5 py-0.5 font-mono text-sm font-bold">
+                        <span class="rounded border border-edge bg-white px-2.5 py-0.5 font-mono text-sm font-bold">
                             {{ $visit->referral_code }}
                         </span>
                     </div>
 
-                    <p class="text-base text-umber">
+                    <p class="text-base text-muted">
                         Party of {{ $visit->party_size }} · from {{ $visit->origin_region }} · {{ $visit->target_window ?: 'Upcoming trip' }}
                     </p>
-                    <p class="text-sm text-umber">Heard about us via {{ $visit->discovery_label }}</p>
+                    <p class="text-sm text-muted">Heard about us via {{ $visit->discovery_label }}</p>
                 </div>
 
                 <div class="md:w-80 md:shrink-0">
                     @if ($visit->isConfirmed())
                         <div class="flex flex-wrap items-center justify-between gap-3">
                             <div>
-                                <span class="inline-block rounded border border-forest bg-forestTint px-2.5 py-1 text-sm font-bold text-forest">
+                                <span class="inline-block rounded border border-ok bg-okTint px-2.5 py-1 text-sm font-bold text-ok">
                                     ✓ Confirmed
                                 </span>
-                                <p class="mt-1 text-sm text-umber">
+                                <p class="mt-1 text-sm text-muted">
                                     {{ $visit->confirmed_by ?: 'Floor staff' }}
                                     @if ($visit->confirmed_at) · {{ $visit->confirmed_at->format('j M, H:i') }}@endif
                                 </p>
@@ -94,7 +94,7 @@
         @empty
             <div class="panel px-6 py-10 text-center">
                 <p class="text-lg font-semibold">No guests match that search.</p>
-                <p class="mt-1 text-base text-umber">
+                <p class="mt-1 text-base text-muted">
                     Check the code again, or
                     <a href="{{ route('staff.visits') }}" class="font-semibold text-ink underline">clear the search</a>.
                 </p>
