@@ -21,9 +21,11 @@ class JourneyController extends Controller
 
     private const ORIGIN_REGIONS = [
         'UK',
-        'North America',
-        'Europe',
-        'Africa',
+        'USA',
+        'Germany',
+        'Austria',
+        'Liberia',
+        'Zambia',
     ];
 
     public function discover(Request $request): View
@@ -55,7 +57,7 @@ class JourneyController extends Controller
         $validated = $request->validate([
             'discovery_source' => ['required', 'string', 'in:diaspora_referral,ai_travel_answer,curated_itinerary,search'],
             'discovery_label' => ['nullable', 'string', 'max:120'],
-            'origin_region' => ['required', 'string', 'in:UK,North America,Europe,Africa'],
+            'origin_region' => ['required', 'string', 'in:UK,USA,Germany,Austria,Liberia,Zambia'],
             'guest_name' => ['required', 'string', 'max:100'],
             'guest_contact' => ['nullable', 'string', 'max:120'],
             'target_window' => ['nullable', 'string', 'max:80'],
