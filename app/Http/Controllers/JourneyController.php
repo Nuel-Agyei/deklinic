@@ -112,7 +112,7 @@ class JourneyController extends Controller
             ->where('token', $token)
             ->firstOrFail();
 
-        return view('journey.referral', [
+        return view('staff.referral', [
             'visit' => $visit,
         ]);
     }

@@ -3,91 +3,116 @@
 @section('title', 'Accra Itinerary — ' . $visit->guest_name)
 
 @section('content')
-<div class="max-w-3xl mx-auto space-y-6">
-    <div class="bg-sand border border-parchment rounded p-6 space-y-5">
-        <div class="flex flex-wrap items-start justify-between gap-4 border-b border-parchment pb-4">
-            <div>
-                <div class="text-xs font-semibold uppercase tracking-wider text-ochreDark">
-                    Stages 02–03 · Saved Itinerary &amp; Accra Arrival
-                </div>
-                <h1 class="text-2xl font-bold text-bark mt-1">
-                    {{ $visit->venue?->name ?? 'De Klinic Restaurant & Pub' }}
-                </h1>
-                <p class="text-sm text-umber mt-0.5">
-                    Guest: <span class="font-semibold text-bark">{{ $visit->guest_name }}</span> · Party of {{ $visit->party_size }} · From {{ $visit->origin_region }}
-                </p>
-            </div>
-
-            @if ($visit->isConfirmed())
-                <span class="px-3 py-1 rounded text-xs font-bold uppercase bg-sageLight text-sage border border-sage">
-                    Visit Confirmed
-                </span>
-            @else
-                <span class="px-3 py-1 rounded text-xs font-bold uppercase bg-parchment text-bark border border-umber">
-                    Saved for Trip
-                </span>
-            @endif
+<div class="space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-parchment pb-4">
+        <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-ochreDark block">
+                Stages 02–03 · Saved Itinerary &amp; Accra Arrival
+            </span>
+            <h1 class="text-2xl font-bold text-ink mt-0.5">
+                {{ $visit->guest_name }} — {{ $visit->venue?->name ?? 'De Klinic Restaurant & Pub' }}
+            </h1>
         </div>
 
-        <dl class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
-            <div class="bg-cream border border-parchment rounded p-3">
-                <dt class="text-xs text-umber">Discovery Source</dt>
-                <dd class="font-semibold text-bark mt-0.5">{{ $visit->discovery_label }}</dd>
-            </div>
-            <div class="bg-cream border border-parchment rounded p-3">
-                <dt class="text-xs text-umber">Target Window</dt>
-                <dd class="font-semibold text-bark mt-0.5">{{ $visit->target_window ?: 'Upcoming Trip' }}</dd>
-            </div>
-            <div class="bg-cream border border-parchment rounded p-3">
-                <dt class="text-xs text-umber">Referral / Check-in Code</dt>
-                <dd class="font-mono font-semibold text-bark mt-0.5">{{ $visit->referral_code }}</dd>
-            </div>
-        </dl>
-
-        @if ($visit->trip_note)
-            <div class="bg-cream border border-parchment rounded p-4 text-sm">
-                <p class="text-xs font-semibold uppercase tracking-wide text-umber mb-1">Traveller Note</p>
-                <p class="text-bark">{{ $visit->trip_note }}</p>
-            </div>
-        @endif
-
-        @if ($visit->ai_itinerary_brief)
-            <div class="bg-cream border-l-4 border-sage rounded-r p-4 text-sm">
-                <p class="text-xs font-semibold uppercase tracking-wide text-sage mb-1">Pre-Trip Context Summary</p>
-                <p class="text-bark leading-relaxed">{{ $visit->ai_itinerary_brief }}</p>
-            </div>
-        @endif
-
         @if ($visit->isConfirmed())
-            <div class="bg-sageLight border border-sage rounded p-4 text-sm text-sage">
-                <p class="font-semibold">Confirmed in Accra</p>
-                <p class="mt-0.5">
-                    Confirmed by {{ $visit->confirmed_by ?: 'Accra Floor Staff' }}
-                    @if ($visit->confirmed_at)
-                        on {{ $visit->confirmed_at->format('M j, Y · H:i') }}
-                    @endif
-                    .
-                </p>
-            </div>
+            <span class="self-start sm:self-auto px-3 py-1.5 text-xs font-bold uppercase tracking-wider bg-forestTint text-forest border border-forest">
+                Confirmed in Accra
+            </span>
         @else
-            <div class="bg-cream border border-parchment rounded p-4 text-sm text-umber">
-                <p class="font-semibold text-bark">Arrival Step in Accra</p>
-                <p class="mt-0.5">
-                    Present code <span class="font-mono font-semibold text-bark">{{ $visit->referral_code }}</span> or itinerary token <span class="font-mono font-semibold text-bark">{{ $visit->token }}</span> to staff at De Klinic so they can confirm your visit.
-                </p>
-            </div>
+            <span class="self-start sm:self-auto px-3 py-1.5 text-xs font-bold uppercase tracking-wider bg-sand text-ink border border-ink">
+                Saved — Awaiting Arrival
+            </span>
         @endif
+    </div>
 
-        <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
-            <a href="{{ route('staff.visits', ['search' => $visit->referral_code]) }}"
-               class="px-4 py-2 rounded bg-bark hover:bg-umber text-cream text-sm font-semibold transition-colors">
-                Go to Staff Confirmation View →
-            </a>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {{-- Left Trip Pass Ledger (7 cols) --}}
+        <section class="lg:col-span-7 bg-sand border border-parchment">
+            <div class="px-5 py-3.5 border-b border-parchment flex items-center justify-between">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-ink">
+                    Itinerary &amp; Arrival Pass
+                </h2>
+                <span class="text-xs font-mono text-umber">Token: {{ $visit->token }}</span>
+            </div>
 
-            <a href="{{ route('referral.show', $visit->token) }}"
-               class="px-4 py-2 rounded bg-ochre hover:bg-ochreDark text-cream text-sm font-semibold transition-colors">
-                Open Referral &amp; Share View →
-            </a>
+            <dl class="divide-y divide-parchment text-sm">
+                <div class="px-5 py-3 grid grid-cols-3 gap-2">
+                    <dt class="text-xs font-bold uppercase tracking-wide text-umber">Guest</dt>
+                    <dd class="col-span-2 font-semibold text-ink">{{ $visit->guest_name }} ({{ $visit->party_size }} {{ \Illuminate\Support\Str::plural('person', $visit->party_size) }})</dd>
+                </div>
+                <div class="px-5 py-3 grid grid-cols-3 gap-2">
+                    <dt class="text-xs font-bold uppercase tracking-wide text-umber">Travelling From</dt>
+                    <dd class="col-span-2 text-ink">{{ $visit->origin_region }}</dd>
+                </div>
+                <div class="px-5 py-3 grid grid-cols-3 gap-2">
+                    <dt class="text-xs font-bold uppercase tracking-wide text-umber">Discovery Source</dt>
+                    <dd class="col-span-2 text-ink">{{ $visit->discovery_label }}</dd>
+                </div>
+                <div class="px-5 py-3 grid grid-cols-3 gap-2">
+                    <dt class="text-xs font-bold uppercase tracking-wide text-umber">Trip Window</dt>
+                    <dd class="col-span-2 text-ink">{{ $visit->target_window ?: 'Upcoming Trip' }}</dd>
+                </div>
+                <div class="px-5 py-3 grid grid-cols-3 gap-2">
+                    <dt class="text-xs font-bold uppercase tracking-wide text-umber">Check-In Code</dt>
+                    <dd class="col-span-2 font-mono font-bold text-ink">{{ $visit->referral_code }}</dd>
+                </div>
+                @if ($visit->trip_note)
+                    <div class="px-5 py-3 grid grid-cols-3 gap-2">
+                        <dt class="text-xs font-bold uppercase tracking-wide text-umber">Guest Note</dt>
+                        <dd class="col-span-2 text-ink">{{ $visit->trip_note }}</dd>
+                    </div>
+                @endif
+            </dl>
+        </section>
+
+        {{-- Right Context & Next Steps (5 cols) --}}
+        <div class="lg:col-span-5 space-y-5">
+            @if ($visit->ai_itinerary_brief)
+                <section class="bg-sand border border-parchment border-l-4 border-l-forest p-5 space-y-2">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-forest">
+                        Pre-Trip Context Summary
+                    </h2>
+                    <p class="text-sm leading-relaxed text-ink">
+                        {{ $visit->ai_itinerary_brief }}
+                    </p>
+                </section>
+            @endif
+
+            <section class="bg-sand border border-parchment p-5 space-y-4">
+                @if ($visit->isConfirmed())
+                    <div class="space-y-1">
+                        <h2 class="text-xs font-bold uppercase tracking-widest text-forest">
+                            Visit Confirmed in Accra
+                        </h2>
+                        <p class="text-sm text-ink">
+                            Confirmed by <strong>{{ $visit->confirmed_by ?: 'Accra Floor Staff' }}</strong>
+                            @if ($visit->confirmed_at)
+                                on {{ $visit->confirmed_at->format('M j, Y · H:i') }}
+                            @endif.
+                        </p>
+                    </div>
+                @else
+                    <div class="space-y-1">
+                        <h2 class="text-xs font-bold uppercase tracking-widest text-ochreDark">
+                            Next Step: Confirm Arrival
+                        </h2>
+                        <p class="text-sm text-umber">
+                            When the guest arrives at De Klinic in Accra, staff match code <span class="font-mono font-semibold text-ink">{{ $visit->referral_code }}</span> and mark the visit confirmed.
+                        </p>
+                    </div>
+                @endif
+
+                <div class="flex flex-col sm:flex-row gap-3 pt-1">
+                    <a href="{{ route('staff.visits', ['search' => $visit->referral_code]) }}"
+                       class="flex-1 text-center px-4 py-2.5 bg-ink hover:bg-umber text-cream text-xs font-bold uppercase tracking-wider transition-colors">
+                        Staff Confirmation View
+                    </a>
+                    <a href="{{ route('referral.show', $visit->token) }}"
+                       class="flex-1 text-center px-4 py-2.5 bg-ochre hover:bg-ochreDark text-cream text-xs font-bold uppercase tracking-wider transition-colors">
+                        Referral &amp; Share View
+                    </a>
+                </div>
+            </section>
         </div>
     </div>
 </div>
