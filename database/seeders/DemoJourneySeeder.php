@@ -19,11 +19,21 @@ class DemoJourneySeeder extends Seeder
                 'summary' => 'Local Ghanaian dishes and an inviting pub atmosphere in Accra for travellers, groups, and locals.',
                 'community_story' => 'Known for genuine community warmth—including serving meals bought by a supporter for five followers.',
                 'sample_details' => [
-                    'data_note' => 'Sample hackathon placeholder data — confirm live details before production.',
-                    'menu_highlights' => 'Sample local plates & pub drinks (to be confirmed)',
+                    'data_note' => 'Sample prototype data — confirm live menu, prices, delivery, live band nights, and group/event bookings directly.',
+                    'menu_highlights' => 'Sample local plates, grilled sides & pub drinks (exact menu to be confirmed)',
                     'pricing_note' => 'Current prices to be confirmed',
                     'delivery_coverage' => 'Delivery coverage to be confirmed',
                     'group_bookings_events' => 'Group bookings & event availability to be confirmed',
+                    'pub_features' => [
+                        'Live band / music nights (sample feature — schedule to be confirmed)',
+                        'Casual pub & evening hangout atmosphere in Accra',
+                        'Welcoming group tables for diaspora friends & visitors',
+                    ],
+                    'sample_menu' => [
+                        ['name' => 'Sample Local Main & Sides', 'category' => 'Local Food', 'status' => 'Sample · Price TBC'],
+                        ['name' => 'Pub Drinks & Evening Refreshments', 'category' => 'Pub Bar', 'status' => 'Sample · Price TBC'],
+                        ['name' => 'Shared Plates for Groups', 'category' => 'Table / Group', 'status' => 'Sample · Availability TBC'],
+                    ],
                 ],
             ]
         );
@@ -44,5 +54,6 @@ class DemoJourneySeeder extends Seeder
                 'status' => 'saved',
             ]
         );
+
     }
 }
